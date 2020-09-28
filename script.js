@@ -9,7 +9,10 @@ let operatorValue = ""
 
 numbers.forEach(function (touch) {
     touch.addEventListener("click", () => {
-        bottomScreen.innerText += touch.innerText
+        if (bottomScreen.innerHTML.includes(".") && touch.innerHTML == ".") { return }
+
+        bottomScreen.innerText += touch.innerText;
+
     })
 
 
@@ -17,32 +20,39 @@ numbers.forEach(function (touch) {
 
 operators.forEach(function (opr) {
     opr.addEventListener("click", () => {
-        operatorValue = opr.innerText;
+        if (bottomScreen.innerText == "" && opr.innerText == "-") {
+            bottomScreen.innerText = "-";
+            return
+        }
+        if (operatorValue != "") { operatorValue = topScreen.innerText.slice(-1) }
+        
 
         computation(operatorValue);
-       display();
+        operatorValue = opr.innerText;
+        display();
 
     })
 })
 
 
 function computation(operatorValue) {
-    if(topScreen.innerHTML == ""){return}
+    if (topScreen.innerHTML == "") { return }
     switch (operatorValue) {
         case "+":
             bottomScreen.innerText = Number(bottomScreen.innerText) + Number(topScreen.innerText.slice(0, -2));
             break;
 
         case "-":
-            bottomScreen.innerText = Number(topScreen.innerText.slice(0,-2)) - Number(bottomScreen.innerText);
+            bottomScreen.innerText = Number(topScreen.innerText.slice(0, -2)) - Number(bottomScreen.innerText);
             break;
 
         case "*":
-            bottomScreen.innerText = Number(topScreen.innerText.slice(0,-2)) * Number(bottomScreen.innerText);
+            bottomScreen.innerText = parseFloat(topScreen.innerText.slice(0, -2)) * parseFloat(bottomScreen.innerText);
+            break;
 
         case "/":
-            bottomScreen.innerText = Number(topScreen.innerText.slice(0,-2)) / Number(bottomScreen.innerText);    
-                
+            bottomScreen.innerText = Number(topScreen.innerText.slice(0, -2)) / Number(bottomScreen.innerText);
+            break;
 
 
     }
@@ -52,26 +62,26 @@ function computation(operatorValue) {
 }
 
 
-function display(){
+function display() {
     topScreen.innerText = bottomScreen.innerText + " " + operatorValue;
-        bottomScreen.innerText = "";
+    bottomScreen.innerText = "";
 
 }
 
 
-equal.addEventListener("click",()=>{
+equal.addEventListener("click", () => {
     computation(operatorValue);
-    topScreen.innerText="";
-})
-
-ac.addEventListener("click",()=>{
     topScreen.innerText = "";
-    bottomScreen.innerText="";
+})
+
+ac.addEventListener("click", () => {
+    topScreen.innerText = "";
+    bottomScreen.innerText = "";
 
 })
 
-del.addEventListener("click",()=>{
-    bottomScreen.innerText = bottomScreen.innerText.slice(0,-1)
+del.addEventListener("click", () => {
+    bottomScreen.innerText = bottomScreen.innerText.slice(0, -1)
 })
 
 
