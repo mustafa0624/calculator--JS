@@ -7,36 +7,49 @@ let del = document.querySelector(".del");
 let equal = document.querySelector(".equal");
 let operatorValue = ""
 
-numbers.forEach(function(touch){
+numbers.forEach(function (touch) {
     touch.addEventListener("click", () => {
-        bottomScreen.innerText += touch.innerText})
-        
+        bottomScreen.innerText += touch.innerText
+    })
+
 
 })
 
-operators.forEach(function(opr){
-    opr.addEventListener("click",() => {
+operators.forEach(function (opr) {
+    opr.addEventListener("click", () => {
         operatorValue = opr.innerText;
-        
+
         computation(operatorValue);
-        display();
-        
-       
-        })
+       display();
+
+    })
 })
 
 
-function computation(operatorValue){
+function computation(operatorValue) {
     if(topScreen.innerHTML == ""){return}
-   switch(operatorValue){
-       case "+":
-        topScreen.innerText += Number(bottomScreen.innerText) + Number(topScreen.innerText.slice(0,-2));
-   }
+    switch (operatorValue) {
+        case "+":
+            bottomScreen.innerText = Number(bottomScreen.innerText) + Number(topScreen.innerText.slice(0, -2));
+            break;
 
-   
+        case "-":
+            bottomScreen.innerText = Number(topScreen.innerText.slice(0,-2)) - Number(bottomScreen.innerText);
+            break;
+
+        case "*":
+            bottomScreen.innerText = Number(topScreen.innerText.slice(0,-2)) * Number(bottomScreen.innerText);
+
+        case "/":
+            bottomScreen.innerText = Number(topScreen.innerText.slice(0,-2)) / Number(bottomScreen.innerText);    
+                
+
+
+    }
+
+
 
 }
-
 
 
 function display(){
@@ -44,4 +57,21 @@ function display(){
         bottomScreen.innerText = "";
 
 }
+
+
+equal.addEventListener("click",()=>{
+    computation(operatorValue);
+    topScreen.innerText="";
+})
+
+ac.addEventListener("click",()=>{
+    topScreen.innerText = "";
+    bottomScreen.innerText="";
+
+})
+
+del.addEventListener("click",()=>{
+    bottomScreen.innerText = bottomScreen.innerText.slice(0,-1)
+})
+
 
