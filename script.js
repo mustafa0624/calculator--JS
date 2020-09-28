@@ -9,7 +9,7 @@ let operatorValue = ""
 
 numbers.forEach(function (touch) {
     touch.addEventListener("click", () => {
-        if (bottomScreen.innerHTML.includes(".") && touch.innerHTML == ".") { return }
+        if (bottomScreen.innerHTML.includes(".") && touch.innerHTML == ".") {return }
 
         bottomScreen.innerText += touch.innerText;
 
@@ -36,7 +36,7 @@ operators.forEach(function (opr) {
 
 
 function computation(operatorValue) {
-    if (topScreen.innerHTML == "") { return }
+    // if (topScreen.innerHTML == "") { return }
     switch (operatorValue) {
         case "+":
             bottomScreen.innerText = Number(bottomScreen.innerText) + Number(topScreen.innerText.slice(0, -2));
